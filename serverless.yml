@@ -5,6 +5,9 @@ provider:
   runtime: python3.6
   region: ap-northeast-1
   stage: prod
+  apiKeys:
+    - name: defaultKey
+      value: ${file(./config.json):api_key}
 
 plugins:
   - serverless-python-requirements
@@ -32,3 +35,12 @@ functions:
       PASSWORD: ${file(./config.json):password}
       WORKER_ID: ${file(./config.json):worker_id}
       TARGET_URL: ${file(./config.json):target_url}
+    events:
+      - http:
+          path: /
+          method: post
+          private: true
+          cors: true
+          response:
+            headers:
+              Content-Type: "'application/json'"

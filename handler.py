@@ -84,9 +84,15 @@ def main(event, context):
         driver.find_element_by_xpath('//*[@id="accountBtn"]/div[2]/div/div[5]/a').click()
         sleep(2)
 
-    except:
+    except Exception as e:
         print("webdriverでエラー")
-        return "Error"
+        print(e)
+
+        return {
+            'statusCode': 500,
+            'body': "Error occured\n",
+            'isBase64Encoded': False
+        }
 
     driver.quit()
 
@@ -102,8 +108,18 @@ def main(event, context):
         }
 
         requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
-    except:
+    except Exception as e:
         print("Slackへの投稿でエラー")
-        return "Error"
+        print(e)
 
-    return "Success"
+        return {
+            'statusCode': 500,
+            'body': "Error occured\n",
+            'isBase64Encoded': False
+        }
+
+    return {
+        'statusCode': 200,
+        'body': "succeeded\n",
+        'isBase64Encoded': False
+    }
