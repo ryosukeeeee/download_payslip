@@ -8,6 +8,8 @@ provider:
   apiKeys:
     - name: defaultKey
       value: ${file(./config.json):api_key}
+  environment:
+    SELENIUM_LAYER_SERVICE: selenium-layer
 
 plugins:
   - serverless-python-requirements
@@ -15,9 +17,13 @@ plugins:
 package:
   exclude:
     - config.json
+    - config.sample.json
     - package.json
     - package-lock.json
     - requirements.txt
+    - bin/**
+    - selenium-layer/**
+    - node_modules/**
 
 custom:
   pythonRequirements:
@@ -29,6 +35,10 @@ functions:
     handler: handler.main
     name: download-payslip
     timeout: 60
+    layers:
+      - ${cf:${self:provider.environment.SELENIUM_LAYER_SERVICE}-${opt:stage, self:provider.stage}.SeleniumLayerExport}
+      - ${cf:${self:provider.environment.SELENIUM_LAYER_SERVICE}-${opt:stage, self:provider.stage}.ChromedriverLayerExport}
+      - ${cf:${self:provider.environment.SELENIUM_LAYER_SERVICE}-${opt:stage, self:provider.stage}.HeadlesschromiumLayerExport}
     environment:
       SLACK_TOKEN: ${file(./config.json):token}
       SLACK_CHANNEL_ID: ${file(./config.json):channel_id}

@@ -1,0 +1,42 @@
+service: selenium-layer
+
+provider:
+  name: aws
+  runtime: python3.6
+  stage: prod
+  region: ap-northeast-1
+
+layers:
+  selenium:
+    path: selenium
+    description: selenium layer
+    CompatibleRuntimes: 
+      - python3.6
+  chromedriver:
+    path: chromedriver
+    description: chrome driver layer
+    CompatibleRuntimes:
+      - python3.6
+  headlesschromium:
+    path: headless-chromium
+    description: headless chromium layer
+    CompatibleRuntimes:
+      - python3.6
+
+resources:
+  Outputs:
+    SeleniumLayerExport:
+      Value:
+        Ref: SeleniumLambdaLayer
+      Export:
+        Name: SeleniumLambdaLayer
+    ChromedriverLayerExport:
+      Value:
+        Ref: ChromedriverLambdaLayer
+      Export:
+        Name: ChromedriverLambdaLayer
+    HeadlesschromiumLayerExport:
+      Value:
+        Ref: HeadlesschromiumLambdaLayer
+      Export:
+        Name: HeadlesschromiumLambdaLayer

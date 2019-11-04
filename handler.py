@@ -7,9 +7,9 @@ import requests
 
 def main(event, context):
         
-    chromedriver_path = './bin/chromedriver'
+    chromedriver_path = '/opt/chromedriver'
     o = Options()
-    o.binary_location = './bin/headless-chromium'
+    o.binary_location = '/opt/headless-chromium'
     o.add_argument('--headless')
     o.add_argument('--disable-gpu')
     o.add_argument('--no-sandbox')
