@@ -15,9 +15,14 @@ plugins:
 package:
   exclude:
     - config.json
+    - config.sample.json
+    - README.md
     - package.json
     - package-lock.json
     - requirements.txt
+    - selenium-layer/**
+    - .python-version
+    - node_modules/**
 
 custom:
   pythonRequirements:
