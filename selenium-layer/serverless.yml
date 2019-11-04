@@ -17,11 +17,6 @@ layers:
     description: chrome driver layer
     CompatibleRuntimes:
       - python3.6
-  headlesschromium:
-    path: headless-chromium
-    description: headless chromium layer
-    CompatibleRuntimes:
-      - python3.6
 
 resources:
   Outputs:
@@ -35,8 +30,3 @@ resources:
         Ref: ChromedriverLambdaLayer
       Export:
         Name: ChromedriverLambdaLayer
-    HeadlesschromiumLayerExport:
-      Value:
-        Ref: HeadlesschromiumLambdaLayer
-      Export:
-        Name: HeadlesschromiumLambdaLayer

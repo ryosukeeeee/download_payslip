@@ -24,6 +24,8 @@ package:
     - bin/**
     - selenium-layer/**
     - node_modules/**
+    - .python-version
+    - README.md
 
 custom:
   pythonRequirements:
@@ -38,7 +40,6 @@ functions:
     layers:
       - ${cf:${self:provider.environment.SELENIUM_LAYER_SERVICE}-${opt:stage, self:provider.stage}.SeleniumLayerExport}
       - ${cf:${self:provider.environment.SELENIUM_LAYER_SERVICE}-${opt:stage, self:provider.stage}.ChromedriverLayerExport}
-      - ${cf:${self:provider.environment.SELENIUM_LAYER_SERVICE}-${opt:stage, self:provider.stage}.HeadlesschromiumLayerExport}
     environment:
       SLACK_TOKEN: ${file(./config.json):token}
       SLACK_CHANNEL_ID: ${file(./config.json):channel_id}
